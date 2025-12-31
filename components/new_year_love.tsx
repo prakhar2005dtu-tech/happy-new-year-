@@ -9,7 +9,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Camera,
-  Clock,
   Gift,
   Moon,
   Sun,
@@ -31,24 +30,35 @@ const PROMISES = [
   "I promise to love you more tomorrow than I do today.",
 ]
 
+// UPDATED: Added your specific memories and image paths
 const MEMORIES = [
   {
-    title: "Our First Date",
-    description: "The day my world changed forever.",
-    date: "Feb 14, 2024",
+    title: "The Beginning",
+    description: "March 3, 2024 - Where our beautiful journey officially started.",
+    date: "Mar 3, 2024",
+    image: "/our_first.jpeg", // Make sure this file is in your public folder
     color: "bg-red-400",
   },
   {
-    title: "That Rainy Night",
-    description: "Dancing in the street like nobody was watching.",
-    date: "May 22, 2024",
+    title: "Hanuman Mandir",
+    description: "Finding peace, home, and blessings in your presence.",
+    date: "Spiritual Date",
+    image: "/hanuman_mandir.jpeg",
+    color: "bg-orange-400",
+  },
+  {
+    title: "Engifest Magic",
+    description: "The music didn't matter. Holding your hand the whole time did.",
+    date: "Engifest '24",
+    image: "/photo2.jpg",
     color: "bg-blue-400",
   },
   {
-    title: "Summer Sunsets",
-    description: "Watching the sky turn pink while holding your hand.",
-    date: "Aug 10, 2024",
-    color: "bg-orange-400",
+    title: "First Kiss & Akshardham",
+    description: "Dec 19, 2024 - A magical mix of passion and peace.",
+    date: "Dec 19, 2024",
+    image: "/photo3.jpg",
+    color: "bg-pink-400",
   },
 ]
 
@@ -76,14 +86,15 @@ function Countdown() {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime()
-      const target = new Date("Jan 1, 2026 00:00:00").getTime()
+      // Updated target to next year since currently it's "2026 New Year" in context
+      const target = new Date("Jan 1, 2027 00:00:00").getTime() 
       const distance = target - now
 
       setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        days: Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24))),
+        hours: Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+        minutes: Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))),
+        seconds: Math.max(0, Math.floor((distance % (1000 * 60)) / 1000)),
       })
     }, 1000)
     return () => clearInterval(timer)
@@ -106,7 +117,6 @@ function Countdown() {
 export function NewYearLoveApp() {
   const [step, setStep] = useState(0)
   const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [quizIndex, setQuizIndex] = useState(0)
   const [score, setScore] = useState(0)
@@ -124,12 +134,12 @@ export function NewYearLoveApp() {
     <div
       className={`relative min-h-screen overflow-hidden flex flex-col items-center p-4 transition-colors duration-500 ${isDarkMode ? "bg-slate-950 text-slate-100" : "bg-background text-foreground"}`}
     >
-      <nav className="fixed top-6 z-50 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-2 rounded-full flex items-center gap-2 shadow-lg">
+      <nav className="fixed top-6 z-50 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-2 rounded-full flex items-center gap-2 shadow-lg overflow-x-auto max-w-[90vw]">
         {steps.map((label, i) => (
           <button
             key={label}
             onClick={() => setStep(i)}
-            className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+            className={`px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
               step === i ? "bg-primary text-white scale-110" : "hover:bg-primary/10 text-primary/60"
             }`}
           >
@@ -222,15 +232,17 @@ export function NewYearLoveApp() {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
-            className="z-10 w-full max-w-4xl space-y-8 mt-24"
+            className="z-10 w-full max-w-6xl space-y-8 mt-24 px-4"
           >
             <div className="text-center space-y-2">
               <h2 className="text-4xl font-bold text-primary flex items-center justify-center gap-3 italic">
                 <Camera className="text-accent animate-pulse" /> Our Sweetest Memories
               </h2>
-              <p className="opacity-60 italic">Click the memories to see a special note!</p>
+              <p className="opacity-60 italic">From March 2024 to Forever...</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
+            
+            {/* UPDATED GRID FOR 4 MEMORIES */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {MEMORIES.map((memory, i) => (
                 <motion.div
                   key={i}
@@ -238,16 +250,17 @@ export function NewYearLoveApp() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.2 }}
                 >
-                  <Card className="overflow-hidden border-none shadow-xl bg-white/60 backdrop-blur-sm group">
+                  <Card className="overflow-hidden border-none shadow-xl bg-white/60 backdrop-blur-sm group h-full">
+                    {/* UPDATED: Image Rendering */}
                     <div
-                      className={`h-40 ${memory.color} flex items-center justify-center text-white relative overflow-hidden`}
+                      className={`h-48 ${memory.color} relative overflow-hidden`}
                     >
-                      <Heart
-                        className="absolute -right-4 -bottom-4 opacity-20 scale-150"
-                        size={100}
-                        fill="currentColor"
-                      />
-                      <Clock size={40} className="group-hover:scale-110 transition-transform" />
+                       <img 
+                        src={memory.image} 
+                        alt={memory.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                       />
+                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
                     </div>
                     <div className="p-6">
                       <span className="text-xs font-bold text-primary/60 tracking-widest uppercase">{memory.date}</span>
@@ -275,25 +288,35 @@ export function NewYearLoveApp() {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
-            className="z-10 w-full max-w-2xl"
+            className="z-10 w-full max-w-2xl px-4"
           >
             <Card className="p-8 md:p-16 border-none shadow-2xl pookie-gradient relative overflow-hidden rounded-[2.5rem]">
               <div className="absolute top-8 right-8 text-primary/10">
                 <Heart size={180} fill="currentColor" />
               </div>
-              <h2 className="text-4xl font-bold mb-8 text-primary italic font-serif">My Dearest Pookie,</h2>
-              <div className="text-xl text-foreground/80 leading-relaxed space-y-6 font-medium italic">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-primary italic font-serif">My Dearest Love,</h2>
+              
+              {/* UPDATED: Love Letter Content */}
+              <div className="text-lg md:text-xl text-foreground/80 leading-relaxed space-y-6 font-medium italic h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-primary/20">
                 <p>
-                  As the clock ticks closer to 2026, I looked back at every memory we made. You are the light that turns
-                  my grey days into pink ones.
+                  Happy New Year, 2026. As I watch the calendar change, I’m overwhelmed by how fast time has flown. It feels surreal that we are walking into another year together.
                 </p>
                 <p>
-                  Every "I love you" from you feels like a new beginning. I promise to hold your hand through every
-                  season of this coming year, just like I did in the last.
+                  It’s been almost two years since our journey started on <strong>March 3, 2024</strong>. Looking back, I realize that the best parts of my past are all the moments I’ve spent with you.
                 </p>
-                <p className="text-primary font-bold">You are my forever and always.</p>
+                <p>
+                  I still think about those early memories that built us—finding peace with you at the <strong>Hanuman Mandir</strong> and that night at <strong>Engifest</strong>, where I held your hand through the whole function. I knew even then that I never wanted to let go.
+                </p>
+                <p>
+                  And now, looking back at <strong>December 19, 2024</strong>, over a year has passed since that magical day—our first kiss and that walk through Akshardham. That day wasn't just a moment; it was the foundation of everything we have now.
+                </p>
+                <p>
+                    Thank you for sticking by my side. Here’s to us, and to the lifetime ahead.
+                </p>
+                <p className="text-primary font-bold mt-4">Yours forever,</p>
               </div>
-              <div className="flex justify-between items-center mt-12 pt-8 border-t border-primary/10">
+
+              <div className="flex justify-between items-center mt-8 pt-8 border-t border-primary/10">
                 <Button variant="ghost" onClick={prevStep} className="rounded-full">
                   <ArrowLeft className="mr-2" /> Back
                 </Button>
@@ -310,7 +333,7 @@ export function NewYearLoveApp() {
             key="promises"
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            className="z-10 w-full max-w-2xl space-y-8"
+            className="z-10 w-full max-w-2xl space-y-8 px-4"
           >
             <div className="text-center">
               <h2 className="text-4xl font-bold text-primary flex items-center justify-center gap-3">
@@ -352,7 +375,7 @@ export function NewYearLoveApp() {
             key="quiz"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="z-10 w-full max-w-md"
+            className="z-10 w-full max-w-md px-4"
           >
             <Card className="p-10 border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-white/90 backdrop-blur-xl rounded-[2rem]">
               <div className="text-center mb-8">
@@ -374,7 +397,7 @@ export function NewYearLoveApp() {
                     <Button
                       key={i}
                       variant="outline"
-                      className="justify-start py-8 px-6 text-md rounded-2xl border-2 border-muted hover:border-primary hover:bg-primary/5 bg-transparent transition-all active:scale-95"
+                      className="justify-start py-8 px-6 text-md rounded-2xl border-2 border-muted hover:border-primary hover:bg-primary/5 bg-transparent transition-all active:scale-95 whitespace-normal h-auto"
                       onClick={() => {
                         if (i === QUIZ_QUESTIONS[quizIndex].correct) {
                           setScore((s) => s + 1)
@@ -390,7 +413,7 @@ export function NewYearLoveApp() {
                         }
                       }}
                     >
-                      <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center mr-3 text-sm font-bold group-hover:bg-primary/20">
+                      <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center mr-3 text-sm font-bold group-hover:bg-primary/20 shrink-0">
                         {String.fromCharCode(65 + i)}
                       </span>
                       {opt}
@@ -407,7 +430,7 @@ export function NewYearLoveApp() {
             key="final"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="z-10 text-center space-y-10 mt-20"
+            className="z-10 text-center space-y-10 mt-20 px-4"
           >
             <div className="relative inline-block">
               <motion.div
