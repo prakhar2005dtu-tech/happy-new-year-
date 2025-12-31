@@ -1,4 +1,4 @@
-import { NewYearLoveApp } from "@/components/new-year-love-app"
+import { NewYearLoveApp } from "../components/new-year-love-app"
 
 export default function Page() {
   return (
@@ -7,3 +7,4 @@ export default function Page() {
     </main>
   )
 }
+
