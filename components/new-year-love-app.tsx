@@ -983,7 +983,6 @@
 
 
 
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -1018,7 +1017,7 @@ const Button = ({ children, onClick, className, variant, ...props }: any) => {
 }
 
 const Card = ({ children, className }: any) => (
-  <div className={`rounded-3xl border border-white/40 bg-white/80 backdrop-blur-md shadow-xl ${className}`}>
+  <div className={`rounded-3xl border border-white/60 bg-white/80 backdrop-blur-md shadow-lg ${className}`}>
     {children}
   </div>
 )
@@ -1096,7 +1095,8 @@ function Countdown() {
     <div className="flex gap-4 justify-center py-6">
       {Object.entries(timeLeft).map(([unit, value]) => (
         <div key={unit} className="text-center">
-          <div className="bg-white/40 backdrop-blur-md rounded-2xl p-4 w-20 h-24 flex items-center justify-center text-4xl font-bold text-pink-600 shadow-sm border border-white/60">
+          {/* Frosted Glass Effect for Countdown Blocks */}
+          <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-4 w-20 h-24 flex items-center justify-center text-4xl font-bold text-pink-600 shadow-md border border-white/50">
             {value}
           </div>
           <span className="text-xs uppercase tracking-widest text-pink-700/70 mt-2 font-bold block">{unit}</span>
@@ -1125,7 +1125,7 @@ export function NewYearLoveApp() {
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-pink-50 text-slate-900 font-sans">
       
-      {/* --- LAYER 1: BACKGROUND HEARTS --- */}
+      {/* LAYER 1: HEARTS BACKGROUND */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div key={i} className="absolute animate-float-heart opacity-0"
@@ -1135,16 +1135,15 @@ export function NewYearLoveApp() {
         ))}
       </div>
 
-      {/* --- LAYER 2: THE TREE (Fixed to Bottom) --- */}
-      {/* This ensures the tree stays in the background and doesn't push text around */}
+      {/* LAYER 2: THE TREE (Background) */}
       <div className="absolute inset-0 z-0 flex items-end justify-center pointer-events-none opacity-80">
-         <div className="w-full h-full max-w-[1000px] relative pointer-events-auto"> 
+         <div className="w-full h-full max-w-[1200px] relative pointer-events-auto transform translate-y-10 scale-110"> 
             <InteractiveTree />
          </div>
       </div>
 
-      {/* --- LAYER 3: NAVBAR --- */}
-      <nav className="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-white/60 backdrop-blur-md border border-white/50 px-6 py-2 rounded-full flex gap-2 shadow-sm">
+      {/* LAYER 3: NAVBAR */}
+      <nav className="absolute top-6 left-1/2 -translate-x-1/2 z-50 bg-white/60 backdrop-blur-md border border-white/50 px-6 py-2 rounded-full flex gap-2 shadow-sm">
         {steps.map((label, i) => (
           <button key={label} onClick={() => setStep(i)}
             className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${step === i ? "bg-pink-600 text-white shadow-md" : "hover:bg-white/50 text-pink-700"}`}>
@@ -1153,36 +1152,35 @@ export function NewYearLoveApp() {
         ))}
       </nav>
 
-      {/* --- LAYER 4: MAIN CONTENT (Centered Overlay) --- */}
+      {/* LAYER 4: MAIN CONTENT (Overlay) */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 pointer-events-none">
-        {/* We use pointer-events-auto on the inner div so buttons work */}
         <div className="pointer-events-auto w-full max-w-4xl flex flex-col items-center">
           
           <AnimatePresence mode="wait">
             {step === 0 && (
               <motion.div key="intro" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-                <div className="relative inline-block mb-6">
+                <div className="relative inline-block mb-8">
                   <Countdown />
-                  <motion.div whileHover={{ rotate: 10 }} className="absolute -top-4 -right-8 bg-yellow-400 p-3 rounded-2xl shadow-lg cursor-pointer text-white" onClick={() => setShowSurprise(!showSurprise)}>
-                    <Gift size={24} />
+                  <motion.div whileHover={{ rotate: 10 }} className="absolute -top-6 -right-10 bg-yellow-400 p-3 rounded-2xl shadow-lg cursor-pointer text-white" onClick={() => setShowSurprise(!showSurprise)}>
+                    <Gift size={28} />
                   </motion.div>
                   {showSurprise && (
-                    <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white p-3 rounded-xl shadow-xl z-50 w-48 text-sm font-bold text-pink-600 animate-bounce">
+                    <div className="absolute -top-24 left-1/2 -translate-x-1/2 bg-white p-4 rounded-xl shadow-xl z-50 w-56 text-sm font-bold text-pink-600 animate-bounce border-2 border-pink-100">
                       I have a million reasons to love you! 🎁
                     </div>
                   )}
                 </div>
 
-                <div className="bg-white/40 backdrop-blur-md p-8 rounded-[2rem] border border-white/60 shadow-xl mb-8">
-                  <h1 className="text-5xl md:text-7xl font-black text-pink-600 tracking-tight mb-2 drop-shadow-sm">
+                <div className="bg-white/30 backdrop-blur-sm p-8 rounded-[2rem] border border-white/50 shadow-xl mb-10">
+                  <h1 className="text-6xl md:text-8xl font-black text-pink-600 tracking-tight mb-2 drop-shadow-sm">
                     Hey Aanchal...
                   </h1>
-                  <p className="text-xl md:text-2xl text-slate-800 font-medium">
-                    Every leaf on this tree is a heartbeat I have for you. <br/>Ready for our 2026?
+                  <p className="text-xl md:text-2xl text-slate-800 font-medium max-w-lg mx-auto leading-relaxed">
+                    Every leaf on this tree is a heartbeat I have for you. Ready for our 2026?
                   </p>
                 </div>
 
-                <Button onClick={nextStep} className="text-xl px-12 py-6 shadow-xl hover:scale-105">
+                <Button onClick={nextStep} className="text-xl px-12 py-8 shadow-xl hover:scale-105 hover:shadow-2xl">
                   Start Our Journey <Rocket className="ml-2" />
                 </Button>
               </motion.div>
@@ -1190,23 +1188,28 @@ export function NewYearLoveApp() {
 
             {step === 1 && (
               <motion.div key="memories" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
-                <h2 className="text-4xl font-bold text-pink-600 text-center mb-8 drop-shadow-sm bg-white/50 backdrop-blur-sm inline-block px-6 py-2 rounded-full mx-auto">
-                   Our Sweetest Memories 📸
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="text-center mb-8">
+                   <h2 className="text-4xl font-bold text-pink-600 drop-shadow-sm inline-block">Our Sweetest Memories</h2>
+                   <p className="text-pink-400 italic mt-2">Click the memories to see a special note!</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {MEMORIES.map((memory, i) => (
-                    <Card key={i} className="group overflow-hidden hover:shadow-2xl transition-all duration-300">
-                      <div className={`h-48 overflow-hidden relative ${memory.color}`}>
+                    <Card key={i} className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-none">
+                      {/* Image Top Half - Matches Screenshot */}
+                      <div className={`h-56 overflow-hidden relative ${memory.color}`}>
                          <img src={memory.image} alt={memory.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
                       </div>
-                      <div className="p-4 bg-white/90">
-                        <h3 className="font-bold text-pink-600">{memory.title}</h3>
-                        <p className="text-xs text-slate-500">{memory.date}</p>
+                      {/* Text Bottom Half */}
+                      <div className="p-6 bg-white min-h-[140px] flex flex-col justify-center">
+                        <p className="text-xs font-bold text-pink-400 uppercase tracking-wider mb-1">{memory.date}</p>
+                        <h3 className="text-xl font-bold text-pink-600 mb-2">{memory.title}</h3>
+                        <p className="text-sm text-slate-500 leading-snug">{memory.description}</p>
                       </div>
                     </Card>
                   ))}
                 </div>
-                <div className="flex justify-center gap-4 mt-8">
+                <div className="flex justify-center gap-4 mt-10">
                   <Button variant="outline" onClick={prevStep}>Back</Button>
                   <Button onClick={nextStep}>Next <ArrowRight className="ml-2" size={16}/></Button>
                 </div>
@@ -1215,17 +1218,19 @@ export function NewYearLoveApp() {
 
             {step === 2 && (
               <motion.div key="letter" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
-                <Card className="p-8 md:p-12 bg-gradient-to-br from-white to-pink-50 relative overflow-hidden">
-                   <Heart className="absolute top-4 right-4 text-pink-100" size={150} fill="currentColor"/>
-                   <h2 className="text-3xl font-bold text-pink-600 mb-4 font-serif relative z-10">My Dearest Aanchal,</h2>
-                   <div className="prose text-slate-700 text-lg leading-relaxed h-[400px] overflow-y-auto pr-2 relative z-10 font-medium">
-                      <p className="mb-4">Happy New Year, 2026. As I watch the calendar change, I’m overwhelmed by how fast time has flown.</p>
-                      <p className="mb-4">It’s been almost two years since our journey started on <strong>March 3, 2024</strong>. Looking back, I realize that the best parts of my past are all the moments I’ve spent with you.</p>
-                      <p className="mb-4">I still think about those early memories that built us—finding peace with you at the <strong>Hanuman Mandir</strong> and that night at <strong>Engifest</strong>, where I held your hand through the whole function.</p>
-                      <p className="mb-4">And now, looking back at <strong>December 19, 2024</strong>, over a year has passed since that magical day—our first kiss and that walk through Akshardham.</p>
-                      <p className="mt-4 font-bold text-pink-600">Yours forever, Prakhar</p>
+                <Card className="p-10 md:p-16 bg-gradient-to-br from-white to-pink-50 relative overflow-hidden shadow-2xl border-white/80">
+                   <div className="absolute top-0 right-0 p-10 opacity-10 text-pink-500">
+                     <Heart size={250} fill="currentColor"/>
                    </div>
-                   <div className="flex justify-between mt-6 pt-4 border-t border-pink-100 relative z-10">
+                   <h2 className="text-4xl font-bold text-pink-600 mb-6 font-serif relative z-10 italic">My Dearest Aanchal,</h2>
+                   <div className="prose text-slate-700 text-lg leading-relaxed h-[400px] overflow-y-auto pr-4 relative z-10 font-medium custom-scrollbar">
+                      <p className="mb-6">Happy New Year, 2026. As I watch the calendar change, I’m overwhelmed by how fast time has flown.</p>
+                      <p className="mb-6">It’s been almost two years since our journey started on <strong>March 3, 2024</strong>. Looking back, I realize that the best parts of my past are all the moments I’ve spent with you.</p>
+                      <p className="mb-6">I still think about those early memories that built us—finding peace with you at the <strong>Hanuman Mandir</strong> and that night at <strong>Engifest</strong>, where I held your hand through the whole function.</p>
+                      <p className="mb-6">And now, looking back at <strong>December 19, 2024</strong>, over a year has passed since that magical day—our first kiss and that walk through Akshardham.</p>
+                      <p className="mt-8 font-bold text-pink-600 text-xl italic">Yours forever, <br/>Prakhar</p>
+                   </div>
+                   <div className="flex justify-between mt-8 pt-6 border-t border-pink-100 relative z-10">
                       <Button variant="ghost" onClick={prevStep}>Back</Button>
                       <Button onClick={nextStep}>Promise Me <ArrowRight className="ml-2"/></Button>
                    </div>
@@ -1234,34 +1239,40 @@ export function NewYearLoveApp() {
             )}
 
             {step === 3 && (
-              <motion.div key="promises" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-xl">
-                 <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white">
-                    <h2 className="text-3xl font-bold text-pink-600 text-center mb-6">7 Sacred Promises</h2>
-                    <div className="space-y-3">
-                      {PROMISES.map((p, i) => (
-                        <div key={i} className="flex gap-3 items-center">
-                          <span className="bg-pink-100 text-pink-600 font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-sm">{i+1}</span>
-                          <p className="text-slate-700 font-medium text-sm">{p}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex justify-center mt-8">
-                       <Button onClick={nextStep} className="w-full py-4 text-lg">I Promise Forever <Heart className="ml-2 fill-current"/></Button>
-                    </div>
+              <motion.div key="promises" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-2xl">
+                 <h2 className="text-3xl font-bold text-pink-600 text-center mb-8 drop-shadow-sm">7 Sacred Promises</h2>
+                 <div className="flex flex-col gap-4">
+                   {/* Promises as Cards - Matches Screenshot */}
+                   {PROMISES.map((p, i) => (
+                     <motion.div 
+                       key={i} 
+                       initial={{ x: -20, opacity: 0 }} 
+                       animate={{ x: 0, opacity: 1 }} 
+                       transition={{ delay: i * 0.1 }}
+                       className="bg-white p-6 rounded-2xl shadow-sm border border-pink-50 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+                     >
+                       <span className="bg-pink-100 text-pink-600 font-bold w-10 h-10 rounded-lg flex items-center justify-center text-lg mb-3">{i+1}</span>
+                       <p className="text-slate-700 font-medium text-lg italic">"{p}"</p>
+                     </motion.div>
+                   ))}
+                 </div>
+                 <div className="flex justify-center mt-10">
+                    <Button onClick={nextStep} className="px-16 py-6 text-xl shadow-xl">I Promise Forever <Heart className="ml-2 fill-current"/></Button>
                  </div>
               </motion.div>
             )}
 
             {step === 4 && (
               <motion.div key="quiz" initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="w-full max-w-md">
-                 <Card className="p-8 text-center">
-                    <h2 className="text-2xl font-bold text-pink-600 mb-4">Pookie Quiz! ❤️</h2>
-                    <h3 className="text-lg font-bold text-slate-800 mb-6">{QUIZ_QUESTIONS[quizIndex].question}</h3>
+                 <Card className="p-8 text-center bg-white/90 backdrop-blur-xl">
+                    <h2 className="text-2xl font-bold text-pink-600 mb-2">Pookie Quiz! ❤️</h2>
+                    <p className="text-slate-400 text-sm mb-6">How well do you know us?</p>
+                    <h3 className="text-xl font-bold text-slate-800 mb-8 leading-snug">"{QUIZ_QUESTIONS[quizIndex].question}"</h3>
                     <div className="grid gap-3">
                        {QUIZ_QUESTIONS[quizIndex].options.map((opt, i) => (
                          <button key={i} onClick={() => handleQuizAnswer(i === QUIZ_QUESTIONS[quizIndex].correct)}
-                           className="w-full p-3 rounded-xl border-2 border-slate-100 hover:border-pink-500 hover:bg-pink-50 font-medium transition-all text-left flex items-center">
-                           <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-600 font-bold flex items-center justify-center mr-3 text-xs">{String.fromCharCode(65+i)}</span>
+                           className="w-full p-4 rounded-xl border-2 border-slate-100 hover:border-pink-500 hover:bg-pink-50 font-medium transition-all text-left flex items-center group">
+                           <span className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold flex items-center justify-center mr-4 group-hover:bg-pink-200 group-hover:text-pink-700">{String.fromCharCode(65+i)}</span>
                            {opt}
                          </button>
                        ))}
@@ -1272,11 +1283,16 @@ export function NewYearLoveApp() {
 
             {step === 5 && (
               <motion.div key="final" initial={{ scale: 0.5 }} animate={{ scale: 1 }} className="text-center">
-                 <h1 className="text-7xl md:text-9xl font-black text-pink-600 mb-4 drop-shadow-md">HAPPY 2026!</h1>
-                 <p className="text-2xl text-slate-700 font-serif italic mb-8 bg-white/40 inline-block px-6 py-2 rounded-full">
-                    "To many more years of being your favorite person."
-                 </p>
-                 <Button onClick={() => setStep(0)} variant="outline">Relive the Magic 🔄</Button>
+                 <Heart className="text-pink-500 mx-auto mb-6 animate-pulse" size={120} fill="currentColor" />
+                 <h1 className="text-7xl md:text-9xl font-black text-pink-600 mb-6 drop-shadow-md italic tracking-tighter">HAPPY 2026!</h1>
+                 <div className="bg-white/60 backdrop-blur-md p-6 rounded-3xl inline-block border border-white">
+                    <p className="text-2xl text-slate-700 font-serif italic">
+                       "To many more years of being your favorite person."
+                    </p>
+                 </div>
+                 <div className="mt-12">
+                   <Button onClick={() => setStep(0)} variant="outline">Relive the Magic 🔄</Button>
+                 </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -1285,4 +1301,5 @@ export function NewYearLoveApp() {
     </div>
   )
 }
+
 
