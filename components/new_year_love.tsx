@@ -522,6 +522,7 @@ const PROMISES = [
   "I promise to love you more tomorrow than I do today.",
 ]
 
+// UPDATED: Adjusted Memory 3 and 4 to match the Metro photos
 const MEMORIES = [
   {
     title: "The Beginning",
@@ -538,16 +539,16 @@ const MEMORIES = [
     color: "bg-orange-400",
   },
   {
-    title: "Engifest Magic",
-    description: "The music didn't matter. Holding your hand the whole time did.",
-    date: "Engifest '24",
+    title: "Metro Diaries",
+    description: "Long rides, endless talks, and holding hands on our commute.",
+    date: "Metro Dates",
     image: "/photo2.jpg",
     color: "bg-blue-400",
   },
   {
-    title: "First Kiss & Akshardham",
-    description: "Dec 19, 2024 - A magical mix of passion and peace.",
-    date: "Dec 19, 2024",
+    title: "Metro Moments",
+    description: "Even a simple metro ride becomes a romantic date with you.",
+    date: "Cute Commutes",
     image: "/photo3.jpg",
     color: "bg-pink-400",
   },
@@ -581,7 +582,6 @@ function Countdown() {
       const target = new Date("Jan 1, 2026 00:00:00").getTime() 
       const distance = target - now
 
-      // Prevent negative numbers if opened after midnight
       if (distance < 0) {
          setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
       } else {
@@ -980,4 +980,3 @@ export function NewYearLoveApp() {
     </div>
   )
 }
-
