@@ -1038,28 +1038,28 @@ const MEMORIES = [
     title: "The Beginning",
     description: "March 3, 2024 - The day our beautiful journey officially started.",
     date: "Mar 3, 2024",
-    image: "/our_first.jpeg", 
+    image: "/happy-new-year-/our_first.jpeg", 
     color: "bg-red-400",
   },
   {
     title: "Hanuman Mandir",
     description: "Finding peace, home, and blessings in your presence.",
     date: "Spiritual Date",
-    image: "/hanuman_mandir.jpeg",
+    image: "/happy-new-year-/hanuman_mandir.jpeg",
     color: "bg-orange-400",
   },
   {
     title: "Metro Diaries",
     description: "Long rides, endless talks, and holding hands on our commute.",
     date: "Metro Dates",
-    image: "/photo2.jpg",
+    image: "/happy-new-year-/photo2.jpg",
     color: "bg-blue-400",
   },
   {
     title: "Metro Moments",
     description: "Even a simple metro ride becomes a romantic date with you.",
     date: "Cute Commutes",
-    image: "/photo3.jpg",
+    image: "/happy-new-year-/photo3.jpg",
     color: "bg-pink-400",
   },
 ]
@@ -1301,5 +1301,6 @@ export function NewYearLoveApp() {
     </div>
   )
 }
+
 
 
