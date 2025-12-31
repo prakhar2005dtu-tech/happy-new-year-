@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -72,10 +72,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-}
+} */
 
-@theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+/* @theme inline {
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx 
   --font-sans: "Geist", "Geist Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -125,7 +125,7 @@
   }
 }
 
-/* Custom Pookie Animations */
+/* Custom Pookie Animations 
 @keyframes float {
   0%,
   100% {
@@ -163,4 +163,71 @@
 
 .pookie-gradient {
   background: linear-gradient(135deg, oklch(0.95 0.05 340), oklch(0.85 0.1 340));
+} */
+
+
+/* 1. Standard Tailwind v3 Imports (Fixes the "plain text" look) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Your Custom Colors (Converted to standard CSS) */
+:root {
+  /* We define these so you can use them if needed, 
+     but your App mainly uses the Tailwind classes like 'bg-pink-600' */
+  --background: 255 241 242; /* Pink-50 */
+  --foreground: 80 7 36;     /* Pink-950 */
+  
+  --primary: 219 39 119;     /* Pink-600 */
+  --primary-foreground: 255 255 255;
+}
+
+/* 3. Base Styles */
+body {
+  background-color: rgb(255, 241, 242); /* pink-50 */
+  color: rgb(80, 7, 36); /* pink-950 */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* --- YOUR CUSTOM ANIMATIONS --- */
+
+/* 1. The Floating Hearts (Essential for the background!) */
+@keyframes float-heart {
+  0% {
+    transform: translateY(110vh) translateX(0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(20px) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-float-heart {
+  animation: float-heart 15s linear infinite;
+}
+
+/* 2. The Pookie Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 3. The Pookie Gradient (Used in the letter card) */
+.pookie-gradient {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
 }
